@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ produit.nom }}{% endblock %}
+
+{% block content %}
+<!-- Section du Produit -->
+<div class="container my-5">
+    <div class="row g-5">
+        <!-- Image du Produit -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <div class="border rounded shadow-sm p-3 bg-white">
+                <img src="{{ produit.image.url }}" class="img-fluid rounded" alt="{{ produit.nom }}" style="max-height: 450px; object-fit: cover;">
+            </div>
+        </div>
+
+        <!-- Détails du Produit + Formulaire -->
+        <div class="col-md-6">
+            <h1 class="mb-3 text-primary fw-bold" style="font-size: 2.5rem;">{{ produit.nom }}</h1>
+            <p class="text-muted mb-4">{{ produit.description }}</p>
+            <h3 class="text-success mb-4" style="font-weight: bold;">{{ produit.prix }} €</h3>
+
+            <!-- Formulaire de Commande -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-center text-dark">Passer une Commande</h5>
+
+                    <form method="post" action="{% url 'creer_commande' produit.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="quantite" class="form-label">Quantité</label>
+                            <input type="number" name="quantite" class="form-control rounded-pill" min="1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nom_client" class="form-label">Nom</label>
+                            <input type="text" name="nom_client" class="form-control rounded-pill" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="adresse" class="form-label">Adresse</label>
+                            <textarea name="adresse" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telephone" class="form-label">Téléphone</label>
+                            <input type="text" name="telephone" class="form-control rounded-pill" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control rounded-pill" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success rounded-pill py-2">Passer la commande</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

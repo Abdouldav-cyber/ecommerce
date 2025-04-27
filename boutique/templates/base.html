@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mon Site E-commerce{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Ton CSS perso -->
+    <link rel="stylesheet" href="#">
+
+    <style>
+        /* Fond dégradé pour la page */
+        body {
+            background: linear-gradient(135deg, #e0f7fa, #ffffff); /* Fond dégradé moderne */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Styles pour la navbar */
+        .navbar {
+            background-color: #007bff; /* Bleu plus vif */
+            border-bottom: 2px solid #0056b3; /* Une petite bordure pour ajouter du contraste */
+        }
+
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem; /* Augmenter la taille pour plus de visibilité */
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffc107; /* Couleur de survol orange */
+        }
+
+        /* Section principale avec bannières */
+        main {
+            padding-top: 40px;
+        }
+
+        .section-banner {
+            background: linear-gradient(90deg, rgba(0, 123, 255, 0.8), rgba(0, 255, 255, 0.6));
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .section-banner h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .section-banner p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        /* Boutons personnalisés */
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border-radius: 20px;
+            padding: 12px 25px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">Cedric_E_Commerce</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Produits</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Section Bannière -->
+    <section class="section-banner">
+        <h1>Bienvenue sur Cedric_E_Commerce</h1>
+        <p>Découvrez nos produits et faites vos achats en ligne avec une expérience exceptionnelle.</p>
+    </section>
+
+    <!-- Contenu principal -->
+    <main class="container my-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Cedric_E_Commerce. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

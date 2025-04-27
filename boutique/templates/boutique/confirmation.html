@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmation de Commande{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="text-success">Merci pour votre commande !</h1>
+        <p class="lead">Votre commande a été enregistrée avec succès.</p>
+    </div>
+
+    <div class="card shadow-lg rounded-4 p-4 mx-auto" style="max-width: 600px;">
+        <h4 class="mb-3 text-primary">{{ commande.produit.nom }}</h4>
+        <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item"><strong>Quantité :</strong> {{ commande.quantite }}</li>
+            <li class="list-group-item"><strong>Nom du client :</strong> {{ commande.nom_client }}</li>
+            <li class="list-group-item"><strong>Adresse :</strong> {{ commande.adresse }}</li>
+            <li class="list-group-item"><strong>Téléphone :</strong> {{ commande.telephone }}</li>
+            <li class="list-group-item"><strong>Email :</strong> {{ commande.email }}</li>
+        </ul>
+        <div class="text-center">
+            <p class="text-muted">Nous vous contacterons bientôt pour la livraison.</p>
+            <a href="{% url 'accueil' %}" class="btn btn-outline-success rounded-pill">Retour à l'accueil</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Nos Produits{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center text-primary mb-5">Liste des Produits</h1>
+    <div class="row g-4">
+        {% for produit in produits %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm rounded-4">
+                <img src="{{ produit.image.url }}" class="card-img-top rounded-top-4" alt="{{ produit.nom }}">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center text-dark">{{ produit.nom }}</h5>
+                    <p class="card-text text-muted">{{ produit.description|truncatewords:20 }}</p>
+                    <p class="card-text fw-bold">Prix : {{ produit.prix }} €</p>
+                    <div class="mt-auto">
+                        <a href="{% url 'details_produit' produit.id %}" class="btn btn-outline-primary w-100 rounded-pill">Voir les détails</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
