@@ -3,57 +3,152 @@
 {% block title %}{{ produit.nom }}{% endblock %}
 
 {% block content %}
-<!-- Section du Produit -->
-<div class="container my-5">
-    <div class="row g-5">
+<style>
+    .product-detail-container {
+        padding: 4rem 0;
+    }
+
+    .product-image-wrapper {
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        background: white;
+        height: 100%;
+        transition: transform 0.3s ease;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 500px;
+        object-fit: contain;
+        padding: 1rem;
+    }
+
+    .product-info {
+        padding-left: 2.5rem;
+    }
+
+    .product-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 1.5rem;
+    }
+
+    .product-price {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #007bff;
+        margin-bottom: 2rem;
+    }
+
+    .product-description {
+        font-size: 1rem;
+        color: #64748b;
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+    }
+
+    .order-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        padding: 2rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #475569;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    .btn-order {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        background: #007bff;
+        color: white;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-order:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+        .product-info {
+            padding-left: 0;
+            margin-top: 2rem;
+        }
+
+        .product-image {
+            height: 400px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .product-title {
+            font-size: 1.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<div class="container product-detail-container">
+    <div class="row">
         <!-- Image du Produit -->
-        <div class="col-md-6 d-flex align-items-center justify-content-center">
-            <div class="border rounded shadow-sm p-3 bg-white">
-                <img src="{{ produit.image.url }}" class="img-fluid rounded" alt="{{ produit.nom }}" style="max-height: 450px; object-fit: cover;">
+        <div class="col-lg-6">
+            <div class="product-image-wrapper">
+                <img src="{{ produit.image.url }}" 
+                     class="product-image" 
+                     alt="{{ produit.nom }}">
             </div>
         </div>
 
-        <!-- Détails du Produit + Formulaire -->
-        <div class="col-md-6">
-            <h1 class="mb-3 text-primary fw-bold" style="font-size: 2.5rem;">{{ produit.nom }}</h1>
-            <p class="text-muted mb-4">{{ produit.description }}</p>
-            <h3 class="text-success mb-4" style="font-weight: bold;">{{ produit.prix }} €</h3>
+        <!-- Détails du Produit -->
+        <div class="col-lg-6 product-info">
+            <h1 class="product-title">{{ produit.nom }}</h1>
+            <div class="product-price">{{ produit.prix }} FCFA</div>
+            <p class="product-description">{{ produit.description }}</p>
 
-            <!-- Formulaire de Commande -->
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h5 class="card-title mb-4 text-center text-dark">Passer une Commande</h5>
+            <!-- Formulaire de Commande Simplifié -->
+            <div class="order-card">
+                <form method="post" action="{% url 'creer_commande' produit.id %}">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label class="form-label">Quantité</label>
+                        <input type="number" 
+                               name="quantite" 
+                               class="form-control" 
+                               min="1" 
+                               required>
+                    </div>
 
-                    <form method="post" action="{% url 'creer_commande' produit.id %}">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="quantite" class="form-label">Quantité</label>
-                            <input type="number" name="quantite" class="form-control rounded-pill" min="1" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="nom_client" class="form-label">Nom</label>
-                            <input type="text" name="nom_client" class="form-control rounded-pill" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="adresse" class="form-label">Adresse</label>
-                            <textarea name="adresse" class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="telephone" class="form-label">Téléphone</label>
-                            <input type="text" name="telephone" class="form-control rounded-pill" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control rounded-pill" required>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-success rounded-pill py-2">Passer la commande</button>
-                        </div>
-                    </form>
-
-                </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn-order">
+                            Commander maintenant
+                        </button>
+                    </div>
+                </form>
             </div>
-
         </div>
     </div>
 </div>

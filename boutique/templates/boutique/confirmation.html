@@ -3,24 +3,110 @@
 {% block title %}Confirmation de Commande{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="text-center mb-4">
-        <h1 class="text-success">Merci pour votre commande !</h1>
-        <p class="lead">Votre commande a été enregistrée avec succès.</p>
-    </div>
+<style>
+    .confirmation-container {
+        min-height: calc(100vh - 160px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-    <div class="card shadow-lg rounded-4 p-4 mx-auto" style="max-width: 600px;">
-        <h4 class="mb-3 text-primary">{{ commande.produit.nom }}</h4>
-        <ul class="list-group list-group-flush mb-4">
-            <li class="list-group-item"><strong>Quantité :</strong> {{ commande.quantite }}</li>
-            <li class="list-group-item"><strong>Nom du client :</strong> {{ commande.nom_client }}</li>
-            <li class="list-group-item"><strong>Adresse :</strong> {{ commande.adresse }}</li>
-            <li class="list-group-item"><strong>Téléphone :</strong> {{ commande.telephone }}</li>
-            <li class="list-group-item"><strong>Email :</strong> {{ commande.email }}</li>
-        </ul>
+    .confirmation-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2.5rem;
+        animation: fadeInUp 0.4s ease-out;
+    }
+
+    .confirmation-icon {
+        width: 80px;
+        height: 80px;
+        background: #007bff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+    }
+
+    .confirmation-icon svg {
+        width: 40px;
+        height: 40px;
+        fill: white;
+    }
+
+    .confirmation-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .confirmation-text {
+        font-size: 1rem;
+        color: #64748b;
+        text-align: center;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .btn-confirmation {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        background: #007bff;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-confirmation:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .confirmation-card {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+
+        .confirmation-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<div class="container confirmation-container py-5">
+    <div class="confirmation-card">
+        <div class="confirmation-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 17.292l-4.5-4.364 1.857-1.858 2.643 2.506 5.643-5.784 1.857 1.857-7.5 7.643z"/>
+            </svg>
+        </div>
+
+        <h2 class="confirmation-title">Commande confirmée !</h2>
+        
+        <p class="confirmation-text">
+            Votre commande de <strong>{{ commande.quantite }} x {{ commande.produit.nom }}</strong><br>
+            a été validée avec succès.
+        </p>
+
         <div class="text-center">
-            <p class="text-muted">Nous vous contacterons bientôt pour la livraison.</p>
-            <a href="{% url 'accueil' %}" class="btn btn-outline-success rounded-pill">Retour à l'accueil</a>
+            <p class="confirmation-text">
+                Un email de confirmation a été envoyé à<br>
+                <strong>{{ commande.email }}</strong>
+            </p>
+
+            <div class="d-grid gap-2">
+                <a href="{% url 'accueil' %}" class="btn btn-confirmation">
+                    Retour à l'accueil
+                </a>
+            </div>
         </div>
     </div>
 </div>

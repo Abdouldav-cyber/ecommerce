@@ -3,22 +3,112 @@
 {% block title %}Nos Produits{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-    <h1 class="text-center text-primary mb-5">Liste des Produits</h1>
-    <div class="row g-4">
+<style>
+    .products-container {
+        padding: 4rem 0;
+    }
+
+    .product-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+        overflow: hidden;
+        height: 100%;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-image {
+        height: 240px;
+        object-fit: cover;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .product-body {
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .product-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-description {
+        font-size: 0.9rem;
+        color: #64748b;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+
+    .product-price {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #007bff;
+        margin: 1rem 0;
+    }
+
+    .btn-details {
+        width: 100%;
+        border-radius: 8px;
+        padding: 0.75rem;
+        font-weight: 500;
+        background: #007bff;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .btn-details:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .empty-message {
+        font-size: 1.1rem;
+        color: #64748b;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .products-container {
+            padding: 2rem 0;
+        }
+        
+        .product-image {
+            height: 200px;
+        }
+    }
+</style>
+
+<div class="container products-container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for produit in produits %}
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm rounded-4">
-                <img src="{{ produit.image.url }}" class="card-img-top rounded-top-4" alt="{{ produit.nom }}">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-center text-dark">{{ produit.nom }}</h5>
-                    <p class="card-text text-muted">{{ produit.description|truncatewords:20 }}</p>
-                    <p class="card-text fw-bold">Prix : {{ produit.prix }} €</p>
-                    <div class="mt-auto">
-                        <a href="{% url 'details_produit' produit.id %}" class="btn btn-outline-primary w-100 rounded-pill">Voir les détails</a>
-                    </div>
+        <div class="col">
+            <div class="product-card">
+                <img src="{{ produit.image.url }}" 
+                     class="product-image" 
+                     alt="{{ produit.nom }}"
+                     loading="lazy">
+                <div class="product-body">
+                    <h3 class="product-title">{{ produit.nom }}</h3>
+                    <p class="product-description">{{ produit.description|truncatewords:20 }}</p>
+                    <div class="product-price">{{ produit.prix }} FCFA</div>
+                    <a href="{% url 'details_produit' produit.id %}" 
+                       class="btn btn-details">
+                        Voir le produit
+                    </a>
                 </div>
             </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="empty-message">Aucun produit disponible actuellement</p>
         </div>
         {% endfor %}
     </div>

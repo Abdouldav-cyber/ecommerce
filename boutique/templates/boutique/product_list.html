@@ -1,31 +1,151 @@
 {% extends 'base.html' %}
 
-{% block title %}Nos Produits{% endblock %}
+{% block title %}{{ produit.nom }}{% endblock %}
 
 {% block content %}
-<!-- Titre de la page -->
-<h1 class="text-center mb-5" style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 2.5rem;">Liste des Produits</h1>
+<style>
+    .product-detail-container {
+        padding: 4rem 0;
+    }
 
-<div class="row">
-    {% for produit in produits %}
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-0 rounded">
-            <!-- Image du produit -->
-            <img src="{{ produit.image.url }}" class="card-img-top rounded-top" alt="{{ produit.nom }}" style="height: 250px; object-fit: cover;">
+    .product-image-wrapper {
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        background: white;
+        transition: transform 0.3s ease;
+        position: relative;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 500px;
+        object-fit: contain;
+        padding: 2rem;
+    }
+
+    .product-info {
+        padding-left: 2.5rem;
+    }
+
+    .product-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 1rem;
+    }
+
+    .product-price {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #007bff;
+        margin-bottom: 1.5rem;
+    }
+
+    .product-description {
+        font-size: 1rem;
+        color: #64748b;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+    }
+
+    .order-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        padding: 2rem;
+    }
+
+    .quantity-input {
+        max-width: 150px;
+        margin: 0 auto 2rem;
+    }
+
+    .btn-order {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 12px;
+        font-weight: 600;
+        background: #007bff;
+        transition: all 0.3s ease;
+    }
+
+    .btn-order:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+        .product-image {
+            height: 400px;
+            padding: 1.5rem;
+        }
+        
+        .product-info {
+            padding-left: 0;
+            margin-top: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .product-title {
+            font-size: 1.6rem;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+        }
+        
+        .product-image {
+            height: 300px;
+            padding: 1rem;
+        }
+    }
+</style>
+
+<div class="container product-detail-container">
+    <div class="row g-4">
+        <!-- Image du Produit -->
+        <div class="col-lg-6">
+            <div class="product-image-wrapper">
+                <img src="{{ produit.image.url }}" 
+                     class="product-image" 
+                     alt="{{ produit.nom }}"
+                     loading="lazy">
+            </div>
+        </div>
+
+        <!-- Détails du Produit -->
+        <div class="col-lg-6 product-info">
+            <h1 class="product-title">{{ produit.nom }}</h1>
+            <div class="product-price">{{ produit.prix }} FCFA</div>
             
-            <div class="card-body">
-                <!-- Nom du produit -->
-                <h5 class="card-title text-primary">{{ produit.nom }}</h5>
-                <!-- Description courte -->
-                <p class="card-text text-muted">{{ produit.description|truncatewords:20 }}</p>
-                <!-- Prix -->
-                <p class="card-text text-success"><strong>{{ produit.prix }} €</strong></p>
-                <!-- Bouton pour voir les détails -->
-                <a href="{% url 'details_produit' produit.id %}" class="btn btn-outline-primary w-100" style="border-radius: 20px;">Voir les détails</a>
+            {% if produit.description %}
+            <p class="product-description">{{ produit.description }}</p>
+            {% endif %}
+
+            <!-- Formulaire de Commande -->
+            <div class="order-card">
+                <form method="post" action="{% url 'creer_commande' produit.id %}">
+                    {% csrf_token %}
+                    
+                    <div class="quantity-input">
+                        <label class="form-label">Quantité</label>
+                        <input type="number" 
+                               name="quantite" 
+                               class="form-control text-center" 
+                               min="1" 
+                               value="1" 
+                               required>
+                    </div>
+
+                    <button type="submit" class="btn btn-order">
+                        <span class="d-inline-block me-2">🛒</span>
+                        Commander maintenant
+                    </button>
+                </form>
             </div>
         </div>
     </div>
-    {% endfor %}
 </div>
-
 {% endblock %}
