@@ -3,153 +3,158 @@
 {% block title %}{{ produit.nom }}{% endblock %}
 
 {% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 <style>
     .product-detail-container {
-        padding: 4rem 0;
+        padding: 5rem 0;
     }
-
     .product-image-wrapper {
-        border-radius: 16px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        border-radius: 20px;
         overflow: hidden;
-        background: white;
-        height: 100%;
-        transition: transform 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background: #ffffff;
+        transition: transform 0.4s;
     }
-
+    .product-image-wrapper:hover {
+        transform: scale(1.02);
+    }
     .product-image {
         width: 100%;
         height: 500px;
         object-fit: contain;
-        padding: 1rem;
+        padding: 1.5rem;
     }
-
     .product-info {
-        padding-left: 2.5rem;
+        padding-left: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
-
     .product-title {
-        font-size: 2rem;
-        font-weight: 600;
-        color: #1a1a1a;
-        margin-bottom: 1.5rem;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 1.2rem;
     }
-
     .product-price {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: #007bff;
-        margin-bottom: 2rem;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0d6efd;
+        margin-bottom: 1.8rem;
     }
-
     .product-description {
-        font-size: 1rem;
-        color: #64748b;
-        line-height: 1.6;
+        font-size: 1.1rem;
+        color: #6c757d;
+        line-height: 1.7;
         margin-bottom: 2.5rem;
     }
-
     .order-card {
-        background: white;
+        background: linear-gradient(135deg, #ffffff, #f8f9fa);
         border-radius: 16px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        padding: 2rem;
+        padding: 2.5rem;
+        transition: box-shadow 0.3s;
     }
-
+    .order-card:hover {
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+    }
     .form-label {
-        font-weight: 500;
-        color: #475569;
+        font-weight: 600;
+        color: #495057;
         margin-bottom: 0.5rem;
     }
-
     .form-control {
-        border: 2px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 0.75rem 1rem;
-        margin-bottom: 1.5rem;
+        border: 2px solid #dee2e6;
+        border-radius: 12px;
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+        transition: all 0.3s;
     }
-
     .form-control:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.2);
     }
-
     .btn-order {
         width: 100%;
         padding: 1rem;
-        border-radius: 8px;
-        font-weight: 600;
-        background: #007bff;
-        color: white;
-        border: none;
-        transition: all 0.3s ease;
+        border-radius: 12px;
+        font-weight: 700;
+        background: #0d6efd;
+        color: #ffffff;
+        font-size: 1.1rem;
+        transition: background 0.3s, transform 0.3s;
     }
-
     .btn-order:hover {
-        background: #0056b3;
-        transform: translateY(-2px);
+        background: #0b5ed7;
+        transform: translateY(-3px);
     }
-
     @media (max-width: 992px) {
         .product-info {
             padding-left: 0;
             margin-top: 2rem;
+            text-align: center;
         }
-
         .product-image {
             height: 400px;
         }
     }
-
     @media (max-width: 576px) {
         .product-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
-
         .product-price {
             font-size: 1.5rem;
         }
     }
 </style>
 
-<div class="container product-detail-container">
-    <div class="row">
+<div class="container product-detail-container animate__animated animate__fadeInUp">
+    <div class="row g-5 align-items-center">
+        
         <!-- Image du Produit -->
         <div class="col-lg-6">
-            <div class="product-image-wrapper">
-                <img src="{{ produit.image.url }}" 
-                     class="product-image" 
-                     alt="{{ produit.nom }}">
+            <div class="product-image-wrapper animate__animated animate__zoomIn">
+                <img src="{{ produit.image.url }}" class="product-image" alt="{{ produit.nom }}">
             </div>
         </div>
 
-        <!-- Détails du Produit -->
-        <div class="col-lg-6 product-info">
-            <h1 class="product-title">{{ produit.nom }}</h1>
-            <div class="product-price">{{ produit.prix }} FCFA</div>
-            <p class="product-description">{{ produit.description }}</p>
+        <!-- Informations du Produit -->
+        <div class="col-lg-6">
+            <div class="product-info">
+                <h1 class="product-title">
+                    <i class="bi bi-box-seam me-2"></i> {{ produit.nom }}
+                </h1>
+                <div class="product-price">
+                    <i class="bi bi-cash-coin me-2"></i> {{ produit.prix }} FCFA
+                </div>
+                <p class="product-description">
+                    <i class="bi bi-info-circle me-2"></i> {{ produit.description }}
+                </p>
 
-            <!-- Formulaire de Commande Simplifié -->
-            <div class="order-card">
-                <form method="post" action="{% url 'creer_commande' produit.id %}">
-                    {% csrf_token %}
-                    <div class="mb-4">
-                        <label class="form-label">Quantité</label>
-                        <input type="number" 
-                               name="quantite" 
-                               class="form-control" 
-                               min="1" 
-                               required>
-                    </div>
+                <!-- Formulaire de Commande -->
+                <div class="order-card mt-4 animate__animated animate__fadeInUp">
+                    <form method="post" action="{% url 'creer_commande' produit.id %}">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label class="form-label">
+                                <i class="bi bi-plus-square-dotted me-1"></i> Quantité
+                            </label>
+                            <input type="number" name="quantite" class="form-control" min="1" required>
+                        </div>
 
-                    <div class="d-grid">
-                        <button type="submit" class="btn-order">
-                            Commander maintenant
-                        </button>
-                    </div>
-                </form>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-order">
+                                <i class="bi bi-cart-check me-2"></i> Commander maintenant
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
+
     </div>
 </div>
 {% endblock %}

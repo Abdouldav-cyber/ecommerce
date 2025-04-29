@@ -59,6 +59,12 @@ def creer_commande(request, produit_id):
     return render(request, 'boutique/passer_commande.html', {'produit': produit})
 
 # Confirmer la commande
+# views.py
+
 def commande_confirmation(request, commande_id):
     commande = get_object_or_404(Commande, pk=commande_id)
-    return render(request, 'boutique/order_confirmation.html', {'commande': commande})
+    message = "Votre commande a été enregistrée avec succès ! Un email de confirmation vous sera envoyé."
+    return render(request, 'boutique/order_confirmation.html', {
+        'commande': commande,
+        'message': message
+    })

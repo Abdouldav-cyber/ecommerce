@@ -6,87 +6,92 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
     <style>
         body {
-            background: #f8fafc;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 1rem;
             font-family: 'Poppins', sans-serif;
+            padding: 1rem;
         }
         .form-container {
             background: #ffffff;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
-            animation: fadeInUp 0.4s ease-out;
+            max-width: 520px;
+            animation: fadeIn 1s ease-in-out;
         }
         h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 600;
-            color: #1a1a1a;
+            color: #0d6efd;
             text-align: center;
             margin-bottom: 2rem;
         }
-        .form-control {
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-        .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-        }
         .form-label {
             font-weight: 500;
-            color: #475569;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
+            color: #495057;
+        }
+        .input-group-text {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 8px 0 0 8px;
+        }
+        .form-control {
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        .form-control:focus {
+            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.2);
+            border-color: #0d6efd;
         }
         .btn-primary {
             width: 100%;
-            padding: 0.875rem;
-            border-radius: 8px;
+            padding: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
-            background: #007bff;
+            border-radius: 12px;
+            transition: 0.3s all;
+            background: #0d6efd;
             border: none;
-            transition: all 0.3s ease;
         }
         .btn-primary:hover {
             background: #0056b3;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 1.5rem;
-            }
-            h1 {
-                font-size: 1.5rem;
-            }
+        .alert {
+            border-radius: 12px;
+            font-size: 0.95rem;
         }
     </style>
 </head>
+
 <body>
 
 <div class="form-container">
-    <h1 class="animate__animated animate__fadeIn">Finaliser la commande</h1>
+    <h1 class="animate__animated animate__fadeInDown">Finaliser la commande</h1>
 
     {% if error %}
-        <div class="alert alert-danger animate__animated animate__fadeIn">{{ error }}</div>
+    <div class="alert alert-danger animate__animated animate__shakeX">
+        <i class="fas fa-exclamation-circle"></i> {{ error }}
+    </div>
     {% endif %}
 
     {% if success %}
-        <div class="alert alert-success animate__animated animate__fadeIn">
-            🎉 Votre commande a été passée avec succès !
-        </div>
+    <div class="alert alert-success animate__animated animate__fadeIn">
+        🎉 Votre commande a été passée avec succès !
+    </div>
     {% endif %}
 
     {% if not success %}
@@ -95,32 +100,47 @@
 
         <div class="mb-3">
             <label for="quantite" class="form-label">Quantité</label>
-            <input type="number" id="quantite" name="quantite" class="form-control" min="1" value="1" required>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-sort-numeric-up"></i></span>
+                <input type="number" id="quantite" name="quantite" class="form-control" min="1" value="1" required>
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="nom" class="form-label">Nom complet</label>
-            <input type="text" id="nom" name="nom" class="form-control" required>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <input type="text" id="nom" name="nom" class="form-control" required>
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="adresse" class="form-label">Adresse</label>
-            <textarea id="adresse" name="adresse" class="form-control" rows="3" required></textarea>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                <textarea id="adresse" name="adresse" class="form-control" rows="3" required></textarea>
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="telephone" class="form-label">Téléphone</label>
-            <input type="tel" id="telephone" name="telephone" class="form-control" required>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                <input type="tel" id="telephone" name="telephone" class="form-control" required>
+            </div>
         </div>
 
         <div class="mb-4">
             <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" name="email" class="form-control" required>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
         </div>
 
         <div class="d-grid">
-            <button type="submit" class="btn btn-primary animate__animated animate__fadeInUp">
-                Confirmer la commande
+            <button type="submit" class="btn btn-primary animate__animated animate__pulse animate__infinite">
+                <i class="fas fa-shopping-cart me-2"></i> Confirmer la commande
             </button>
         </div>
     </form>
